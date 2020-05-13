@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Form = () => {
+const Form = (props) => {
 
     const [formState, setFormState] = useState({
         name: "",
@@ -16,9 +16,15 @@ const Form = () => {
         setFormState({...formState, [e.target.name]: value})
     }
 
+    const submitMember = (e) => {
+        e.preventDefault();
+        props.addMember(formState);
+        setFormState({name: "", email:"", password: "", team: "", role: "", terms: false})
+    }
+
     return(
         <div>
-            <form>
+            <form onSubmit={submitMember}>
                 <label htmlFor="name">
                     Name:
                     <input 

@@ -20,11 +20,30 @@ function App() {
     role: "Crew",
     email: "johnb@avengerracing.com"
 
+  },
+  {
+    id: 3,
+    name: "Joe Saginaw",
+    team: "Megalodon",
+    role: "Media",
+    email: "saggyjoe@truckmagazine.com"
+
   }])
+
+  const addMember = person => {
+    const newMember = {
+      id: memberList.length + 1,
+      name: person.name,
+      team: person.team,
+      role: person.role,
+      email: person.email,
+    };
+    setMemberList([...memberList, newMember])
+  }
 
   return (
     <div>
-      <Form />
+      <Form addMember={addMember} />
       <UserTable memberList={memberList} />
     </div>
   );
