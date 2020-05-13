@@ -42,7 +42,7 @@ const Form = () => {
                 <label htmlFor="password">
                     Password:
                     <input 
-                    type="text"
+                    type="password"
                     name="password"
                     id="password"
                     value={formState.password}
@@ -80,7 +80,6 @@ const Form = () => {
                 </select>
                 </label>
                 <label htmlFor="terms">
-                    I agree to the Terms and Conditions.
                     <input 
                     type="checkbox"
                     name="terms"
@@ -88,6 +87,7 @@ const Form = () => {
                     checked={formState.terms}
                     onChange={inputChange}
                     />
+                    I agree to the Terms and Conditions.
                 </label>
                 <button>Submit</button>
             </form>
