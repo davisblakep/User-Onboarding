@@ -19,6 +19,9 @@ export default function UserTable(props) {
   const classes = useStyles();
 
   return (
+      
+      <div className="table-container">
+          <h3>Welcome to the Members Page!</h3>
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -43,5 +46,6 @@ export default function UserTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }

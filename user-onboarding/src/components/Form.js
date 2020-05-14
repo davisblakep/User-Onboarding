@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
 
@@ -54,6 +55,14 @@ const Form = (props) => {
         setFormState({...formState, [e.target.name]: value})
     }
 
+    let history = useHistory();
+
+    const SubmitButton = () =>{
+           return history.push("/members");   
+    }
+
+    
+
     const submitMember = (e) => {
         e.preventDefault();
         // props.addMember(formState);
@@ -61,11 +70,13 @@ const Form = (props) => {
         axios
         .post("https://reqres.in/api/users", formState)
         .then(response => {console.log(response); props.addMember(response.data)})
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
+        SubmitButton()
     }
 
+
     return(
-        <div>
+        <div className="form-container">
             <form onSubmit={submitMember}>
                 <label htmlFor="name">
                     Name:
@@ -120,7 +131,7 @@ const Form = (props) => {
                 </select>
                 </label>
                 <label htmlFor="role">
-                Role:
+                Role: 
                 <select
                 value={formState.role}
                 name="role"
@@ -135,6 +146,7 @@ const Form = (props) => {
                 <option value="Media">Media</option>
                 </select>
                 </label>
+                <br />
                 <label htmlFor="terms">
                     <input 
                     type="checkbox"

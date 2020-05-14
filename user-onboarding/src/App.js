@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import {Route} from 'react-router-dom';
 import './App.css';
 
 import Form from './components/Form'
 import UserTable from './components/UserTable'
+import NavAppBar from './components/NavAppBar'
+import HomePage from './components/HomePage'
 
 function App() {
 
@@ -43,8 +46,16 @@ function App() {
 
   return (
     <div>
+      <NavAppBar />
+      <Route exact path="/">
+      <HomePage />
+      </Route>
+      <Route path="/signup">
       <Form addMember={addMember} />
+      </Route>
+      <Route path="/members">
       <UserTable memberList={memberList} />
+      </Route>
     </div>
   );
 }
