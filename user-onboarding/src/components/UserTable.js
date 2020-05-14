@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -21,8 +22,8 @@ export default function UserTable(props) {
   return (
       
       <div className="table-container">
-          <h3>Welcome to the Members Page!</h3>
     <TableContainer component={Paper}>
+        
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

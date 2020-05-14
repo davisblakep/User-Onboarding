@@ -25,7 +25,7 @@ export default function NavAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor: "gray"}}>
+      <AppBar position="static" style={{backgroundColor: "black"}}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <Link style={{textDecoration: "none", color: "white"}} to="/">
@@ -33,7 +33,7 @@ export default function NavAppBar() {
             </Link>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Monster Truck Rally Members Page
+          Monster Jam XXV Members
           </Typography>
           <Link style={{textDecoration: "none", color: "white"}} to="/signup">
           <Button color="inherit">Sign Up</Button>

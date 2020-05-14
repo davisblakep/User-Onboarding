@@ -3,17 +3,29 @@ import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 const formSchema = yup.object().shape({
     name: yup.string().required("Name is a required field"),
     email: yup.string().email("Must be a valid email address").required("Must include email address"),
     password: yup.string().required("Must include a password"),
-    team: yup.string(),
-    role: yup.string(),
-    terms: yup.boolean().oneOf([true], "Please agree to the terms and conditions")
+    team: yup.string().required("Please select your team"),
+    role: yup.string().required("Please select your role"),
+    terms: yup.bool().oneOf([true], "Please agree to the terms and conditions")
 });
+
+const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+      marginTop: "-6%"
+}});
 
 
 const Form = (props) => {
+
+    const classes = useStyles();
 
     const [formState, setFormState] = useState({
         name: "",
@@ -33,6 +45,20 @@ const Form = (props) => {
         terms: "",
     })
 
+   
+
+    console.log("errorState", errorState)
+
+    const inputChange = (e) => {
+        console.log("input change", formState)
+        console.log("event target", e.target)
+        e.persist();
+        validate(e);
+        let value = e.target.name === "terms" ? e.target.checked: e.target.value;
+        setFormState({...formState, [e.target.name]: value})
+        console.log("value", value)
+    }
+
     const validate = e => {
         yup.reach(formSchema, e.target.name).validate(e.target.value)
         .then(valid => {
@@ -41,19 +67,12 @@ const Form = (props) => {
             });
         })
         .catch(err => {
-            console.log(err.errors);
+            console.log("errors", err.errors);
             setErrorState({
                 ...errorState, [e.target.name]: err.errors[0]
             });
         });
     };
-
-    const inputChange = (e) => {
-        e.persist();
-        validate(e);
-        let value = e.target.type === "checkbox" ? e.target.checked: e.target.value;
-        setFormState({...formState, [e.target.name]: value})
-    }
 
     let history = useHistory();
 
@@ -76,8 +95,12 @@ const Form = (props) => {
 
 
     return(
+       
         <div className="form-container">
-            <form onSubmit={submitMember}>
+             <Card className={classes.root} variant="outlined" style={{backgroundColor: "white", height: "80%"}}>
+      <CardContent>
+            <form onSubmit={submitMember} style={{marginTop: "20%"}}>
+                <br />
                 <label htmlFor="name">
                     Name:
                     <input 
@@ -90,6 +113,7 @@ const Form = (props) => {
                     required
                     />
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.name}</p>
                 <label htmlFor="email">
                     Email:
                     <input 
@@ -102,6 +126,7 @@ const Form = (props) => {
                     required
                     />
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.email}</p>
                 <label htmlFor="password">
                     Password:
                     <input 
@@ -114,6 +139,7 @@ const Form = (props) => {
                     required
                     />
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.password}</p>
                 <label htmlFor="team">
                 Team:
                 <select
@@ -130,6 +156,7 @@ const Form = (props) => {
                 <option value="Megalodon">Megalodon</option>
                 </select>
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.team}</p>
                 <label htmlFor="role">
                 Role: 
                 <select
@@ -146,6 +173,7 @@ const Form = (props) => {
                 <option value="Media">Media</option>
                 </select>
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.role}</p>
                 <br />
                 <label htmlFor="terms">
                     <input 
@@ -154,13 +182,19 @@ const Form = (props) => {
                     id="terms"
                     checked={formState.terms}
                     onChange={inputChange}
+                    value={!formState.terms}
                     required
                     />
                     I agree to the Terms and Conditions.
                 </label>
+                <p style={{color: 'red', fontSize: '10px'}}>{errorState.terms}</p>
                 <button>Submit</button>
+                
             </form>
+            </CardContent>
+        </Card>
         </div>
+        
     )
 }
 
