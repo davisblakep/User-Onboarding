@@ -35,9 +35,9 @@ form {
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
-  padding: 3% 6% 3% 6%;
+  padding: 3% 6% 0% 6%;
   margin-top: -5%;
-  height: 320px
+  height: 330px
 }
 
 form input {
